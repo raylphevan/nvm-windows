@@ -179,6 +179,32 @@ func update() {
   }
 }
 */
+func readFile() string {
+	const versionFile = ".nvmrc"
+	files, err := ioutil.ReadDir(".")
+	check(err)
+
+	for _, file := range files {
+		if !file.IsDir() &&  file.Name() == versionFile {
+			return getVerFromFile(versionFile)
+		}
+	}
+	
+	return ""
+}
+
+func check(err error) {
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func getVerFromFile(versionFile string) string {
+	byteVersion, err := ioutil.ReadFile(versionFile)
+	check(err)
+	stringVersion := string(byteVersion[:])
+	return stringVersion
+}
 
 func getVersion(version string, cpuarch string, localInstallsOnly ...bool) (string, string, error) {
 	requestedVersion := version
@@ -197,7 +223,11 @@ func getVersion(version string, cpuarch string, localInstallsOnly ...bool) (stri
 	}
 
 	if version == "" {
-		return "", cpuarch, errors.New("A version argument is required but missing.")
+		if readFile() != "" {
+			version = readFile()
+		} else {
+			return "", cpuarch, errors.New("A version argument is required but missing.")
+		}
 	}
 
 	// If user specifies "latest" version, find out what version is
