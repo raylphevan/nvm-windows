@@ -1,12 +1,12 @@
 #define MyAppName "NVM for Windows"
 #define MyAppShortName "nvm"
 #define MyAppLCShortName "nvm"
-#define MyAppVersion "1.1.9"
+#define MyAppVersion "1.2.0"
 #define MyAppPublisher "Ecor Ventures LLC"
 #define MyAppURL "https://github.com/coreybutler/nvm-windows"
 #define MyAppExeName "nvm.exe"
 #define MyIcon "bin\nodejs.ico"
-#define ProjectRoot "."
+#define ProjectRoot "C:\Users\revangelista\projects\nvm-windows"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
